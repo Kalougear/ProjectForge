@@ -76,18 +76,18 @@ Got project files everywhere? Arduino sketches scattered across your PC? Random 
    - Press `Windows + X` and click "Windows Powershell" (not admin)
    - Copy and paste these commands one by one:
 
-# 1. Install required package (one-time setup)
+## 1. Install required package (one-time setup)
 ```bash
 sudo apt update
 sudo apt install python3 python3-pip python3-yaml git
 ```
-# 2. Clone the repo (one-time setup)
+## 2. Clone the repo (one-time setup)
 ```
 git clone https://github.com/Kalougear/ProjectForge.git
 cd ProjectForge
 ```
 
-# 3. Run the script
+## 3. Run the script
 ```
 python3 -m project_forge
 ```
