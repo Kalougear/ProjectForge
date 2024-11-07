@@ -10,7 +10,7 @@ Got project files everywhere? Arduino sketches scattered across your PC? Random 
 ## Made with 🛠️ by [SKTech] - For Makers, By Makers!
 
 ## Contributors
-## [Lopofsky](https://github.com/Lopofsky)
+ - [Lopofsky](https://github.com/Lopofsky)
 
 
 
