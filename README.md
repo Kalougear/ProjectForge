@@ -117,7 +117,19 @@ One-line setup:
 ```bash
 sudo apt update && sudo apt install python3 python3-pip git && pip3 install PyYAML && git clone https://github.com/Kalougear/ProjectForge.git && cd ProjectForge && python3 -m project_forge
 ```
+# 🍎 For Mac/MacOS Users
 
+### 1. Install Homebrew (if not installed)
+```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"```
+
+### 2. Complete Mac setup in one go:
+```brew update && \
+brew install python3 git && \
+pip3 install PyYAML && \
+git clone https://github.com/Kalougear/ProjectForge.git && \
+cd ProjectForge && \
+python3 -m project_management
+```
 ---
 
 ## 🗺️ Path Guide (For Everyone!)
