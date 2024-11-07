@@ -43,14 +43,25 @@ class ProjectManager:
             os.makedirs(base_path, exist_ok=True)
             return base_path
 
-        if 'base_path' not in self.config:
-            print(Colors.header("\n=== Project Base Configuration ==="))
-            base_path = input(Colors.info("Enter the base path for all projects: "))
+        current_base_path = self.config.get('base_path')
+        
+        if not current_base_path:
+            print(Colors.header("\n====== Welcome to Project Forge! ======"))
+            print(Colors.info("""
+Initialize your project workspace by setting up a master folder.
+This will be the central location where all your projects will be organized.
+Common locations include:
+- Desktop/Projects
+- Documents/Projects
+- Home directory/Projects
+            """))
+            base_path = input(Colors.info("Please enter the path for your master project folder: "))
         else:
-            base_path = self.config['base_path']
-            change = input(Colors.info(f"The current base path serves as the master folder, designated for all projects: {base_path}. Would you like to change it? (y/n): "))
+            change = input(Colors.info(f"Current master folder path: {current_base_path}\nWould you like to change it? (y/n): "))
             if change.lower() == 'y':
                 base_path = input(Colors.info("Please enter the new path for the master folder: "))
+            else:
+                base_path = current_base_path
 
         try:
             # Handle Windows paths
@@ -65,6 +76,11 @@ class ProjectManager:
             # Update config
             self.config['base_path'] = base_path
             self.config_manager.save_config()
+            
+            if not current_base_path:
+                print(Colors.success("\nMaster folder successfully initialized!"))
+                print(Colors.info("Your project workspace is now ready for use."))
+                
             return base_path
             
         except Exception as e:
@@ -82,22 +98,36 @@ class ProjectManager:
                 os.makedirs(os.path.join(self.base_path, folder['name']), exist_ok=True)
             return test_folders
 
-        print(Colors.header("\n=== Master Folders Configuration ==="))
+        print(Colors.header("\n====== Project Organization Structure ======"))
         
         if 'master_folders' in self.config:
-            print(Colors.info("Current default master folders:"))
+            print(Colors.info("""
+Let's set up how your projects will be organized. Project Forge uses a folder
+structure to help you keep your work organized based on project status.
+
+Your current folder structure is:"""))
             for folder in self.config['master_folders']:
-                print(f"  - {folder['name']}: {folder['desc']}")
+                print(Colors.success(f"\n• {folder['name']}")
+                      + Colors.info(f"\n  {folder['desc']}"))
             
-            change = input(Colors.info("\nWould you like to modify the master folders? (y/n): initialize the Default or modify is 'y', to bypass press 'n': "))
+            print(Colors.info("""
+Would you like to:
+1. Keep this structure (press 'n')
+2. Customize it (press 'y')
+"""))
+            change = input(Colors.info("Your choice (y/n): "))
             if change.lower() != 'y':
                 return self.config['master_folders']
 
         master_folders = []
-        print(Colors.info("\nEnter master folder names and descriptions (empty name to initialize default):"))
+        print(Colors.info("""
+Let's customize your folder structure!
+Enter folder names and descriptions, or press Enter without a name to use defaults.
+Each folder will help organize your projects by their status or purpose.
+"""))
         
         while True:
-            name = input(Colors.info("\nFolder name (or press Enter to finish): ")).strip().upper()
+            name = input(Colors.info("Folder name (or press Enter to finish): ")).strip().upper()
             if not name:
                 break
             desc = input(Colors.info(f"Description for {name}: ")).strip()
@@ -110,18 +140,23 @@ class ProjectManager:
                 {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
                 {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
                 {'name': 'DONE', 'desc': 'Completed projects'},
-                {'name': 'Test_And_Experiments', 'desc': 'Code snippet experiments and test projects'},
-                {'name': 'Code_Archives', 'desc': 'Code snippets, libraries, ready to go'}
+                {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
+                {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
             ]
-            print(Colors.warning("\nUsing default folder structure:"))
+            print(Colors.header("\nSetting up default project organization:"))
             for folder in master_folders:
-                print(f"  - {folder['name']}: {folder['desc']}")
+                print(Colors.success(f"\n• {folder['name']}")
+                      + Colors.info(f"\n  {folder['desc']}"))
 
         # Create the folders
+        print(Colors.header("\nCreating folder structure..."))
         for folder in master_folders:
             folder_path = os.path.join(self.base_path, folder['name'])
             os.makedirs(folder_path, exist_ok=True)
-            print(Colors.success(f"Ensured {folder['name']} exists"))
+            print(Colors.success(f"✓ Created {folder['name']}"))
+
+        print(Colors.success("\nFolder structure setup complete!"))
+        print(Colors.info("Your project workspace is now organized and ready for use."))
 
         # Update config
         self.config['master_folders'] = master_folders

@@ -1,7 +1,7 @@
-base_path:
+base_path: /mnt/c/Users/SKTech/Desktop/project_files/
 defaults:
   create_readme: true
-  readme_template: "# {project_name}
+  readme_template: '# {project_name}
 
 
     Created: {date}
@@ -26,120 +26,120 @@ defaults:
 
     - builds/: Build outputs and releases
 
-    "
+    '
   status: ONGOING
 file_categories:
   cad:
     drawings:
-      - .dwg
-      - .dxf
+    - .dwg
+    - .dxf
     models:
-      - .f3d
-      - .fcstd
-      - .step
-      - .stp
-      - .iges
+    - .f3d
+    - .fcstd
+    - .step
+    - .stp
+    - .iges
     prints:
-      - .stl
-      - .gcode
+    - .stl
+    - .gcode
   docs:
     diagrams:
-      - .drawio
-      - .svg
+    - .drawio
+    - .svg
     text:
-      - .txt
-      - .md
-      - .pdf
+    - .txt
+    - .md
+    - .pdf
   hardware:
     pcb:
-      - .kicad_pcb
-      - .gbr
+    - .kicad_pcb
+    - .gbr
     production:
-      - .bom
-      - .pos
+    - .bom
+    - .pos
     schematics:
-      - .sch
-      - .kicad_sch
-      - .brd
+    - .sch
+    - .kicad_sch
+    - .brd
   software:
     build:
-      - .o
-      - .obj
-      - .exe
+    - .o
+    - .obj
+    - .exe
     config:
-      - .ini
-      - .json
-      - .yaml
+    - .ini
+    - .json
+    - .yaml
     preserve_structure: true
     src:
-      - .c
-      - .cpp
-      - .h
-      - .hpp
-      - .py
-      - .ino
+    - .c
+    - .cpp
+    - .h
+    - .hpp
+    - .py
+    - .ino
 ignore_patterns:
-  - ^\.
-  - ~$
-  - ^\$
-  - ^desktop\.ini$
-  - ^Thumbs\.db$
-  - ^\.git
-  - ^\.vs
-  - ^\.pio/build/
-  - ^\.vscode/
-  - ^__pycache__
-  - \.pyc$
+- ^\.
+- ~$
+- ^\$
+- ^desktop\.ini$
+- ^Thumbs\.db$
+- ^\.git
+- ^\.vs
+- ^\.pio/build/
+- ^\.vscode/
+- ^__pycache__
+- \.pyc$
 master_folders:
-  - desc: Active projects in development
-    name: ONGOING
-  - desc: Project concepts and future plans
-    name: IDEAS
-  - desc: Temporarily paused projects
-    name: HOLD
-  - desc: Completed projects
-    name: DONE
-  - desc: Code snippet experiments and test projects
-    name: Test_Lab
-  - desc: Code snippets, libraries, ready to go
-    name: Code_Vault
+- desc: Active projects in development
+  name: ONGOING
+- desc: Project concepts and future plans
+  name: IDEAS
+- desc: Temporarily paused projects
+  name: HOLD
+- desc: Completed projects
+  name: DONE
+- desc: Code snippet experiments and test projects
+  name: Test_Lab
+- desc: Code snippets, libraries, ready to go
+  name: Code_Vault
 naming_patterns:
   PascalCase:
-    description: "PascalCase: ComponentName001"
+    description: 'PascalCase: ComponentName001'
     example: MotorMountCad001
-    pattern: "{name}{type}{counter}"
+    pattern: '{name}{type}{counter}'
   Snake_Case:
-    description: "Snake_Case: Component_Name_001"
+    description: 'Snake_Case: Component_Name_001'
     example: Motor_Mount_Cad_001
-    pattern: "{name}_{type}_{counter}"
+    pattern: '{name}_{type}_{counter}'
   snake_case:
-    description: "snake_case: component_name_001"
+    description: 'snake_case: component_name_001'
     example: motor_mount_cad_001
-    pattern: "{name}_{type}_{counter}"
+    pattern: '{name}_{type}_{counter}'
 preserved_software_structure:
-  - .vscode
-  - .pio
-  - src
-  - lib
-  - include
-  - test
-  - build
-  - debug
-  - release
-  - platformio.ini
-  - arduino.json
-  - package.json
-  - CMakeLists.txt
-  - node_modules
-  - vendor
+- .vscode
+- .pio
+- src
+- lib
+- include
+- test
+- build
+- debug
+- release
+- platformio.ini
+- arduino.json
+- package.json
+- CMakeLists.txt
+- node_modules
+- vendor
 project_structure:
   _docs:
     description: Documentation and reference materials
     subfolders:
-      - datasheets
-      - images
-      - notes
-      - references
+    - datasheets
+    - images
+    - notes
+    - references
   builds:
     description: Build outputs and releases
     subfolders: []
@@ -147,8 +147,8 @@ project_structure:
     description: CAD files and 3D printing
     subfolders:
       3dprint:
-        - stl
-        - gcode
+      - stl
+      - gcode
       drawings: []
       models: []
   hardware:
@@ -157,26 +157,26 @@ project_structure:
       bom: []
       pcb: []
       production:
-        - gerber
-        - assembly
+      - gerber
+      - assembly
       schematics: []
   software:
     description: Software and firmware
     subfolders: []
 software_project_markers:
   directories:
-    - .vscode
-    - .pio
-    - src
-    - lib
-    - include
-    - test
-    - build
+  - .vscode
+  - .pio
+  - src
+  - lib
+  - include
+  - test
+  - build
   files:
-    - platformio.ini
-    - arduino.json
-    - package.json
-    - CMakeLists.txt
-    - .ino
-    - main.cpp
-    - sketch.ino
+  - platformio.ini
+  - arduino.json
+  - package.json
+  - CMakeLists.txt
+  - .ino
+  - main.cpp
+  - sketch.ino
