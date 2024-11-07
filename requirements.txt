@@ -1,0 +1,7 @@
+# requirements.txt
+PyYAML>=5.1
+pathlib>=1.0
+pytest>=6.0  # for testing
+black>=21.0  # for code formatting
+mypy>=0.900  # for type checking
+pylint>=2.8  # for linting

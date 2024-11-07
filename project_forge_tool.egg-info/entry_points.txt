@@ -1,0 +1,2 @@
+[console_scripts]
+project-forge = project_forge.cli.menu:main
