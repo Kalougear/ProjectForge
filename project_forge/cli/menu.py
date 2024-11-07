@@ -61,7 +61,7 @@ class CLI:
     def interactive_mode(self) -> None:
         """Run interactive CLI menu"""
         while True:
-            print_menu("Project Manager", [
+            print_menu("Project Forge", [
                 "Create new project",
                 "Organize existing project",
                 "Move project between statuses",
@@ -87,7 +87,7 @@ class CLI:
 
     def _create_project_interactive(self):
         """Interactive project creation"""
-        print(Colors.header("\n=== Create New Project ==="))
+        print(Colors.header("\n=== Project Forge - Create New Project ==="))
         
         # Get project name
         project_name = input(Colors.info("Please specify the new name for the project: "))
@@ -114,7 +114,7 @@ class CLI:
 
     def _organize_project_interactive(self):
         """Interactive project organization"""
-        print(Colors.header("\n=== Organize Project or Snippets ==="))
+        print(Colors.header("\n=== Project Forge - Organize Project ==="))
         
         # First ask if these are code snippets
         print_menu("Select Organization Type", [
@@ -180,7 +180,7 @@ class CLI:
 
     def _organize_snippets(self, source_path: str):
         """Organize code snippets into Code_Archives with folders"""
-        print(Colors.header("\n=== Organizing Code Snippets ==="))
+        print(Colors.header("\n=== Project Forge - Organizing Code Snippets ==="))
         
         try:
             self.create_manager().snippet_handler.organize_snippets(source_path)
@@ -189,7 +189,7 @@ class CLI:
 
     def _move_project_interactive(self):
         """Interactive project movement between statuses"""
-        print(Colors.header("\n=== Move Project ==="))
+        print(Colors.header("\n=== Project Forge - Move Project ==="))
         
         # Get all projects
         projects = self.create_manager()._get_all_projects()
@@ -286,7 +286,7 @@ class CLI:
 
     def _list_projects(self):
         """List all projects"""
-        print(Colors.header("\n=== Project List ==="))
+        print(Colors.header("\n=== Project Forge - Project List ==="))
         
         projects = self.create_manager()._get_all_projects()
         if not projects:

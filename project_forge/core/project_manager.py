@@ -100,80 +100,142 @@ Common locations include:
 
         print(Colors.header("\n====== Project Organization Structure ======"))
         
-        if 'master_folders' in self.config:
-            print(Colors.info("""
-Let's set up how your projects will be organized. Project Forge uses a folder
-structure to help you keep your work organized based on project status.
+        # Get default folders from config
+        default_folders = self.config.get('master_folders', [
+            {'name': 'ONGOING', 'desc': 'Active projects in development'},
+            {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
+            {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
+            {'name': 'DONE', 'desc': 'Completed projects'},
+            {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
+            {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
+        ])
 
-Your current folder structure is:"""))
-            for folder in self.config['master_folders']:
-                print(Colors.success(f"\n• {folder['name']}")
-                      + Colors.info(f"\n  {folder['desc']}"))
-            
-            print(Colors.info("""
-Would you like to:
-1. Keep this structure (press 'n')
-2. Customize it (press 'y')
-"""))
-            change = input(Colors.info("Your choice (y/n): "))
-            if change.lower() != 'y':
-                return self.config['master_folders']
-
-        master_folders = []
         print(Colors.info("""
-Let's customize your folder structure!
-Enter folder names and descriptions, or press Enter without a name to use defaults.
-Each folder will help organize your projects by their status or purpose.
-"""))
+Project Forge uses a folder structure to help you keep your work organized.
+The default structure is:"""))
         
-        while True:
-            name = input(Colors.info("Folder name (or press Enter to finish): ")).strip().upper()
-            if not name:
-                break
-            desc = input(Colors.info(f"Description for {name}: ")).strip()
-            master_folders.append({'name': name, 'desc': desc})
+        for folder in default_folders:
+            print(Colors.success(f"\n• {folder['name']}")
+                  + Colors.info(f"\n  {folder['desc']}"))
+        
+        print(Colors.info("""
+Choose your folder structure setup:
+1. Use default structure only (press '1')
+2. Use default structure + custom folders (press '2')
+3. Create completely custom structure (press '3')
+"""))
+        choice = input(Colors.info("Your choice (1/2/3): "))
+        
+        if choice == '1':
+            # Create default folders
+            print(Colors.success("\nCreating default folder structure:"))
+            for folder in default_folders:
+                folder_path = os.path.join(self.base_path, folder['name'])
+                os.makedirs(folder_path, exist_ok=True)
+                print(Colors.success(f"✓ Created {folder['name']}"))
+                
+        elif choice == '2':
+            # Create default folders first
+            print(Colors.success("\nCreating default folder structure:"))
+            for folder in default_folders:
+                folder_path = os.path.join(self.base_path, folder['name'])
+                os.makedirs(folder_path, exist_ok=True)
+                print(Colors.success(f"✓ Created {folder['name']}"))
 
-        if not master_folders:
-            # Provide default folders if none specified
-            master_folders = [
-                {'name': 'ONGOING', 'desc': 'Active projects in development'},
-                {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
-                {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
-                {'name': 'DONE', 'desc': 'Completed projects'},
-                {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
-                {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
-            ]
-            print(Colors.header("\nSetting up default project organization:"))
-            for folder in master_folders:
-                print(Colors.success(f"\n• {folder['name']}")
-                      + Colors.info(f"\n  {folder['desc']}"))
-
-        # Create the folders
-        print(Colors.header("\nCreating folder structure..."))
-        for folder in master_folders:
-            folder_path = os.path.join(self.base_path, folder['name'])
-            os.makedirs(folder_path, exist_ok=True)
-            print(Colors.success(f"✓ Created {folder['name']}"))
+            # Then add custom folders
+            print(Colors.info("""
+Let's add your custom folders!
+Enter folder names and descriptions (press Enter without a name to finish).
+These will be created alongside the default folders.
+"""))
+            
+            while True:
+                name = input(Colors.info("Custom folder name (or press Enter to finish): ")).strip().upper()
+                if not name:
+                    break
+                desc = input(Colors.info(f"Description for {name}: ")).strip()
+                
+                # Create the custom folder
+                folder_path = os.path.join(self.base_path, name)
+                os.makedirs(folder_path, exist_ok=True)
+                print(Colors.success(f"✓ Created custom folder {name}"))
+                
+        else:  # choice == '3'
+            print(Colors.info("""
+Let's create your custom folder structure!
+Enter folder names and descriptions (press Enter without a name to finish).
+This will be your project's organization structure.
+"""))
+            
+            custom_folders = []
+            while True:
+                name = input(Colors.info("Folder name (or press Enter to finish): ")).strip().upper()
+                if not name:
+                    if not custom_folders:
+                        print(Colors.warning("\nAt least one folder is required. Please create a folder:"))
+                        continue
+                    break
+                desc = input(Colors.info(f"Description for {name}: ")).strip()
+                custom_folders.append({'name': name, 'desc': desc})
+                
+                # Create the folder
+                folder_path = os.path.join(self.base_path, name)
+                os.makedirs(folder_path, exist_ok=True)
+                print(Colors.success(f"✓ Created {name}"))
 
         print(Colors.success("\nFolder structure setup complete!"))
         print(Colors.info("Your project workspace is now organized and ready for use."))
 
-        # Update config
-        self.config['master_folders'] = master_folders
-        self.config_manager.save_config()
-        return master_folders
+        # Always return the default folders from config
+        return default_folders
 
     def create_project(self, project_name: str, status: str = None) -> str:
         """Create new project with basic structure"""
         status = status or self.defaults['status']
         project_path = os.path.join(self.base_path, status, project_name)
         
+        # Create project directory
         os.makedirs(project_path, exist_ok=True)
-        self._create_project_yaml(project_path, project_name, status)
         
+        # Create project structure from config
+        print(Colors.header(f"\nCreating project structure for '{project_name}'..."))
+        for folder_name, folder_info in self.project_structure.items():
+            folder_path = os.path.join(project_path, folder_name)
+            os.makedirs(folder_path, exist_ok=True)
+            print(Colors.success(f"✓ Created {folder_name}"))
+            
+            # Create subfolders if defined
+            if 'subfolders' in folder_info:
+                if isinstance(folder_info['subfolders'], list):
+                    # Simple list of subfolder names
+                    for subfolder in folder_info['subfolders']:
+                        subfolder_path = os.path.join(folder_path, subfolder)
+                        os.makedirs(subfolder_path, exist_ok=True)
+                        print(Colors.success(f"  ✓ Created {folder_name}/{subfolder}"))
+                else:
+                    # Dictionary with nested structure
+                    for subfolder, sub_items in folder_info['subfolders'].items():
+                        subfolder_path = os.path.join(folder_path, subfolder)
+                        os.makedirs(subfolder_path, exist_ok=True)
+                        print(Colors.success(f"  ✓ Created {folder_name}/{subfolder}"))
+                        
+                        # Create any deeper nested folders
+                        if isinstance(sub_items, list) and sub_items:
+                            for item in sub_items:
+                                item_path = os.path.join(subfolder_path, item)
+                                os.makedirs(item_path, exist_ok=True)
+                                print(Colors.success(f"    ✓ Created {folder_name}/{subfolder}/{item}"))
+        
+        # Create project metadata
+        self._create_project_yaml(project_path, project_name, status)
+        print(Colors.success("✓ Created project.yaml"))
+        
+        # Create README if enabled
         if self.defaults.get('create_readme', True):
             self._create_readme(project_path, project_name, status)
-            
+            print(Colors.success("✓ Created README.md"))
+        
+        print(Colors.success(f"\nProject '{project_name}' created successfully!"))
         return project_path
 
     def organize_existing_project(self, source_path: str, project_name: str, 
