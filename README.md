@@ -7,6 +7,12 @@ Got project files everywhere? Arduino sketches scattered across your PC? Random 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20WSL-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
+## Made with 🛠️ by [SKTech] - For Makers, By Makers!
+
+## Contributors
+## [Lopofsky](https://github.com/Lopofsky)
+
+
 
 # 📑 Table of Contents
 
