@@ -24,136 +24,120 @@ defaults:
     "
   status: ONGOING
 file_categories:
-  # Source Code Files
+  archives:
+    - .zip
+    - .rar
+    - .7z
+    - .tar
+    - .gz
+    - .bz2
   code:
     programming:
-      - .py # Python
-      - .js # JavaScript
-      - .ts # TypeScript
-      - .jsx # React JSX
-      - .tsx # React TypeScript
-      - .html # HTML
-      - .css # CSS
-      - .scss # SASS
-      - .less # LESS
-      - .cpp # C++
-      - .c # C
-      - .h # Header
-      - .hpp # C++ Header
-      - .java # Java
-      - .rb # Ruby
-      - .php # PHP
-      - .swift # Swift
-      - .go # Go
-      - .rs # Rust
-      - .ino # Arduino
-      - .sql # SQL
-
-  # Documentation and Notes
-  documents:
-    notes:
-      - .md # Markdown
-      - .txt # Plain text
-      - .rtf # Rich Text Format
-    office_docs:
-      - .pdf # PDF
-      - .doc # Word
-      - .docx # Word
-      - .xls # Excel
-      - .xlsx # Excel
-      - .ppt # PowerPoint
-      - .pptx # PowerPoint
-      - .odt # OpenDocument Text
-      - .ods # OpenDocument Spreadsheet
-    technical:
-      - .drawio # Diagrams
-      - .uml # UML diagrams
-      - .svg # Vector graphics
-
-  # Image Files
-  images:
-    raster:
-      - .jpg # JPEG
-      - .jpeg # JPEG
-      - .png # PNG
-      - .gif # GIF
-      - .bmp # Bitmap
-      - .tiff # TIFF
-      - .webp # WebP
-      - .ico # Icon
-    vector:
-      - .svg # SVG
-      - .ai # Adobe Illustrator
-      - .eps # Encapsulated PostScript
-    raw:
-      - .raw # Raw image
-      - .cr2 # Canon Raw
-      - .nef # Nikon Raw
-      - .arw # Sony Raw
-
-  # Data Files
+      - .py
+      - .js
+      - .ts
+      - .jsx
+      - .tsx
+      - .html
+      - .css
+      - .scss
+      - .less
+      - .cpp
+      - .c
+      - .h
+      - .hpp
+      - .java
+      - .rb
+      - .php
+      - .swift
+      - .go
+      - .rs
+      - .ino
+      - .sql
+  config:
+    - .ini
+    - .conf
+    - .cfg
+    - .env
+    - .properties
   data:
-    structured:
-      - .json # JSON
-      - .yaml # YAML
-      - .yml # YAML
-      - .xml # XML
-      - .toml # TOML
-    tabular:
-      - .csv # CSV
-      - .tsv # Tab-separated values
-      - .xlsx # Excel
     database:
-      - .db # SQLite
-      - .sqlite # SQLite
-      - .sql # SQL dumps
-
-  # Media Files
-  media:
-    audio:
-      - .mp3 # MP3
-      - .wav # WAV
-      - .ogg # OGG
-      - .flac # FLAC
-    video:
-      - .mp4 # MP4
-      - .avi # AVI
-      - .mov # QuickTime
-      - .wmv # Windows Media
-      - .webm # WebM
-
-  # Archive Files
-  archives:
-    - .zip # ZIP
-    - .rar # RAR
-    - .7z # 7-Zip
-    - .tar # TAR
-    - .gz # GZIP
-    - .bz2 # BZIP2
-
-  # Design Files
+      - .db
+      - .sqlite
+      - .sql
+    structured:
+      - .json
+      - .yaml
+      - .yml
+      - .xml
+      - .toml
+    tabular:
+      - .csv
+      - .tsv
+      - .xlsx
   design:
     cad:
-      - .stl # 3D printing
-      - .obj # 3D object
-      - .fbx # Autodesk FBX
-      - .dxf # AutoCAD
-      - .dwg # AutoCAD
+      - .stl
+      - .obj
+      - .fbx
+      - .dxf
+      - .dwg
     design_tools:
-      - .psd # Photoshop
-      - .ai # Illustrator
-      - .sketch # Sketch
-      - .fig # Figma
-      - .xd # Adobe XD
-
-  # Configuration Files
-  config:
-    - .ini # INI
-    - .conf # Config
-    - .cfg # Config
-    - .env # Environment
-    - .properties # Properties
-
+      - .psd
+      - .ai
+      - .sketch
+      - .fig
+      - .xd
+  documents:
+    notes:
+      - .md
+      - .txt
+      - .rtf
+    office_docs:
+      - .pdf
+      - .doc
+      - .docx
+      - .xls
+      - .xlsx
+      - .ppt
+      - .pptx
+      - .odt
+      - .ods
+    technical:
+      - .drawio
+      - .uml
+      - .svg
+  images:
+    raster:
+      - .jpg
+      - .jpeg
+      - .png
+      - .gif
+      - .bmp
+      - .tiff
+      - .webp
+      - .ico
+    raw:
+      - .raw
+      - .cr2
+      - .nef
+      - .arw
+    vector:
+      - .svg
+      - .ai
+      - .eps
+  media:
+    audio:
+      - .mp3
+      - .wav
+      - .ogg
+      - .flac
+    video:
+      - .mp4
+      - .avi
+      - .mov
+      - .wmv
+      - .webm
 ignore_patterns:
   - ^\.
   - ^__pycache__$
@@ -188,33 +172,111 @@ project_structure:
   _docs:
     description: Documentation and reference materials
     subfolders:
-      - datasheets
-      - images
-      - notes
-      - references
+      datasheets:
+        description: Technical documentation and datasheets
+        subfolders: []
+      images:
+        description: Project images and screenshots
+        subfolders:
+          assets: []
+          diagrams: []
+          screenshots: []
+      notes:
+        description: Project notes and documentation
+        subfolders:
+          meetings: []
+          planning: []
+          research: []
+      references:
+        description: Reference materials and guides
+        subfolders:
+          examples: []
+          guides: []
+          standards: []
   builds:
     description: Build outputs and releases
-    subfolders: []
+    subfolders:
+      artifacts:
+        description: Build artifacts
+        subfolders: []
+      releases:
+        description: Release packages
+        subfolders: []
+      temp:
+        description: Temporary build files
+        subfolders: []
   cad:
     description: CAD files and 3D printing
     subfolders:
       3dprint:
-        - stl
-        - gcode
-      drawings: []
-      models: []
+        description: 3D printing files
+        subfolders:
+          gcode:
+            description: Generated GCode files
+            subfolders: []
+          stl:
+            description: STL files for printing
+            subfolders: []
+      drawings:
+        description: Technical drawings
+        subfolders:
+          assembly: []
+          electrical: []
+          mechanical: []
+      models:
+        description: 3D models
+        subfolders:
+          exports: []
+          source: []
   hardware:
     description: Hardware-related files
     subfolders:
-      bom: []
-      pcb: []
+      bom:
+        description: Bill of Materials
+        subfolders:
+          components: []
+          vendors: []
+      pcb:
+        description: PCB design files
+        subfolders:
+          design: []
+          library: []
       production:
-        - gerber
-        - assembly
-      schematics: []
+        description: Production files
+        subfolders:
+          assembly:
+            description: Assembly instructions and files
+            subfolders: []
+          gerber:
+            description: Gerber files for PCB production
+            subfolders: []
+      schematics:
+        description: Circuit schematics
+        subfolders:
+          main: []
+          modules: []
   software:
     description: Software and firmware
-    subfolders: []
+    subfolders:
+      config:
+        description: Configuration files
+        subfolders: []
+      docs:
+        description: Code documentation
+        subfolders:
+          api: []
+          internal: []
+      src:
+        description: Source code
+        subfolders:
+          core: []
+          libs: []
+          modules: []
+      tests:
+        description: Test files
+        subfolders:
+          integration: []
+          unit: []
 software_project_markers:
   directories:
     - src
@@ -227,3 +289,22 @@ software_project_markers:
     - package.json
     - requirements.txt
     - setup.py
+status_categories:
+  Code_Vault:
+    color: white
+    description: Code snippets, libraries, ready to go
+  DONE:
+    color: cyan
+    description: Completed projects
+  HOLD:
+    color: yellow
+    description: Temporarily paused projects
+  IDEAS:
+    color: blue
+    description: Project concepts and future plans
+  ONGOING:
+    color: green
+    description: Active projects in development
+  Test_Lab:
+    color: magenta
+    description: Code snippet experiments and test projects

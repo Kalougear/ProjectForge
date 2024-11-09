@@ -40,7 +40,8 @@ class ProjectManager:
     def check_master_folders_exist(self, path: str = None) -> bool:
         """Check if master folders exist in given path or base path"""
         check_path = path if path else self.base_path
-        required_folders = ['ONGOING', 'IDEAS', 'HOLD', 'DONE', 'Test_Lab', 'Code_Vault']
+        status_categories = self.config.get('status_categories', {})
+        required_folders = list(status_categories.keys())
         
         for folder in required_folders:
             folder_path = os.path.join(check_path, folder)
@@ -93,8 +94,11 @@ These will be created alongside the existing folders.
             os.makedirs(folder_path, exist_ok=True)
             print(Colors.success(f"✓ Created custom folder {name}"))
             
-            # Add to master_folders in config
-            self.config['master_folders'].append({'name': name, 'desc': desc})
+            # Add to status_categories in config
+            self.config['status_categories'][name] = {
+                'description': desc,
+                'color': 'white'  # Default color for custom categories
+            }
             self.config_manager.save_config()
 
         print(Colors.success("\nCustom folders added successfully!"))
@@ -187,22 +191,18 @@ Common locations include:
                 os.makedirs(os.path.join(self.base_path, folder['name']), exist_ok=True)
             return test_folders
 
-        # Get default folders from config
-        default_folders = self.config.get('master_folders', [
-            {'name': 'ONGOING', 'desc': 'Active projects in development'},
-            {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
-            {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
-            {'name': 'DONE', 'desc': 'Completed projects'},
-            {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
-            {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
-        ])
+        # Convert status_categories to master_folders format
+        status_categories = self.config.get('status_categories', {})
+        master_folders = [
+            {'name': name, 'desc': info['description']}
+            for name, info in status_categories.items()
+        ]
 
         # If master folders don't exist, configure them
         if not self.check_master_folders_exist():
             self.configure_master_folders()
 
-        # Always return the default folders from config
-        return default_folders
+        return master_folders
 
     def configure_master_folders(self) -> List[Dict[str, str]]:
         """Configure master folder structure"""
@@ -217,15 +217,12 @@ Common locations include:
 
         print(Colors.header("\n====== Project Organization Structure ======"))
         
-        # Get default folders from config
-        default_folders = self.config.get('master_folders', [
-            {'name': 'ONGOING', 'desc': 'Active projects in development'},
-            {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
-            {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
-            {'name': 'DONE', 'desc': 'Completed projects'},
-            {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
-            {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
-        ])
+        # Get status categories from config
+        status_categories = self.config.get('status_categories', {})
+        default_folders = [
+            {'name': name, 'desc': info['description']}
+            for name, info in status_categories.items()
+        ]
 
         print(Colors.info("""
 Project Forge uses a folder structure to help you keep your work organized.
@@ -277,12 +274,22 @@ These will be created alongside the default folders.
                 os.makedirs(folder_path, exist_ok=True)
                 print(Colors.success(f"✓ Created custom folder {name}"))
                 
+                # Add to status_categories in config
+                self.config['status_categories'][name] = {
+                    'description': desc,
+                    'color': 'white'  # Default color for custom categories
+                }
+                self.config_manager.save_config()
+                
         else:  # choice == '3'
             print(Colors.info("""
 Let's create your custom folder structure!
 Enter folder names and descriptions (press Enter without a name to finish).
 This will be your project's organization structure.
 """))
+            
+            # Clear existing status categories
+            self.config['status_categories'] = {}
             
             custom_folders = []
             while True:
@@ -295,15 +302,23 @@ This will be your project's organization structure.
                 desc = input(Colors.info(f"Description for {name}: ")).strip()
                 custom_folders.append({'name': name, 'desc': desc})
                 
+                # Add to status_categories in config
+                self.config['status_categories'][name] = {
+                    'description': desc,
+                    'color': 'white'  # Default color for custom categories
+                }
+                
                 # Create the folder
                 folder_path = os.path.join(self.base_path, name)
                 os.makedirs(folder_path, exist_ok=True)
                 print(Colors.success(f"✓ Created {name}"))
+            
+            # Save the updated config
+            self.config_manager.save_config()
 
         print(Colors.success("\nFolder structure setup complete!"))
         print(Colors.info("Your project workspace is now organized and ready for use."))
 
-        # Always return the default folders from config
         return default_folders
 
     def create_project(self, project_name: str, status: str = None) -> str:
