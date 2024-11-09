@@ -194,10 +194,10 @@ class CLI:
                     print(Colors.info("""
 === Copy and Organize to New Location ===
 This will:
-1. Create a new project in your project workspace
-2. Copy all files from the source directory
-3. Organize them according to Project Forge structure
-The original files will remain unchanged.
+ - Create a new project in your project workspace
+ - Copy all files from the source directory
+ - Organize them according to Project Forge structure
+ - The original files will remain unchanged.
 """))
 
                     # Get project details
