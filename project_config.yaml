@@ -1,4 +1,4 @@
-base_path: /mnt/c/Users/SKTech/Desktop/project_files/scripts/Test_Subject
+base_path:
 defaults:
   create_readme: true
   readme_template: "# {project_name}

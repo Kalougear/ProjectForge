@@ -145,7 +145,7 @@ brew install python3 git && \
 pip3 install PyYAML && \
 git clone https://github.com/Kalougear/ProjectForge.git && \
 cd ProjectForge && \
-python3 -m project_management
+python3 -m project_forge
 ```
 
 ---
