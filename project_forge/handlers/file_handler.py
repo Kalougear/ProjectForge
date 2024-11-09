@@ -84,14 +84,47 @@ class FileHandler:
     def _get_file_category(self, filename: str) -> str:
         """Determine file category based on extension"""
         ext = os.path.splitext(filename)[1].lower()
-        for category, extensions in self.file_categories.items():
-            if ext in extensions:
-                if category == 'code':
-                    return 'software/src'
-                elif category == 'docs':
-                    return '_docs/notes'
-                elif category == 'data':
-                    return '_docs/data'
+        
+        # Traverse nested file categories
+        for category, content in self.file_categories.items():
+            # Handle nested categories
+            if isinstance(content, dict):
+                for subcategory, extensions in content.items():
+                    if isinstance(extensions, list) and ext in extensions:
+                        # Map categories to project structure
+                        if category == 'code':
+                            if subcategory == 'programming':
+                                return 'software/src'
+                        elif category == 'documents':
+                            if subcategory == 'notes':
+                                return '_docs/notes'
+                            elif subcategory == 'office_docs':
+                                return '_docs/references'
+                            elif subcategory == 'technical':
+                                return '_docs/datasheets'
+                        elif category == 'images':
+                            return '_docs/images'
+                        elif category == 'data':
+                            if subcategory == 'structured':
+                                return '_docs/data'
+                            elif subcategory == 'tabular':
+                                return '_docs/data'
+                            elif subcategory == 'database':
+                                return 'software/db'
+                        elif category == 'media':
+                            return '_docs/media'
+                        elif category == 'design':
+                            if subcategory == 'cad':
+                                return 'cad/models'
+                            elif subcategory == 'design_tools':
+                                return '_docs/design'
+            # Handle flat categories
+            elif isinstance(content, list) and ext in content:
+                if category == 'archives':
+                    return 'builds'
+                elif category == 'config':
+                    return 'software/config'
+        
         return None
 
     def _generate_new_filename(self, filename: str, pattern: str) -> str:
