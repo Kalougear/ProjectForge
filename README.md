@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🛠️ Project|Forge - Crafting Order from Chaos
 
 Got project files everywhere? Arduino sketches scattered across your PC? Random STL files you can't find? Fear not, fellow maker! This tool will transform your chaotic project folders into a well-organized maker's paradise!
@@ -204,7 +203,7 @@ YourPath/
 ├── IDEAS/                    # Future projects
 ├── HOLD/                    # Paused projects
 ├── DONE/                    # Completed projects
-├── Test_And_Experiments/    # Test code
+├── Test_Lab/    # Test code
 └── Code_Vault/          # Code snippets
 ```
 
@@ -279,7 +278,7 @@ Select status:
 2. IDEAS: Future plans
 3. HOLD: Paused projects
 4. DONE: Completed projects
-5. Test_And_Experiments        # Good for quick tests
+5. Test_Lab        # Good for quick tests
 6. Code_Vault              # For code snippets
 ```
 
@@ -588,7 +587,7 @@ Files Organized: 23 total
 ### For Project Organization
 
 - Use descriptive project names
-- Start with ONGOING or Test_And_Experiments
+- Start with ONGOING or Test_Lab
 - Move to DONE when complete
 - Use Code_Vault for useful snippets
 
@@ -615,7 +614,7 @@ The tool automatically:
 1. "Where should I put my project?"
 
    - ONGOING: For active projects
-   - Test_And_Experiments: For quick tests
+   - Test_Lab: For quick tests
    - Code_Vault: For useful code bits
 
 2. "What happens to my original files?"
@@ -850,7 +849,7 @@ YourPath/
 ├── IDEAS/                    # Future projects
 ├── HOLD/                    # Paused projects
 ├── DONE/                    # Completed projects
-├── Test_And_Experiments/    # Test code
+├── Test_Lab/    # Test code
 └── Code_Vault/          # Code snippets
 ```
 
@@ -925,7 +924,7 @@ Select status:
 2. IDEAS: Future plans
 3. HOLD: Paused projects
 4. DONE: Completed projects
-5. Test_And_Experiments        # Good for quick tests
+5. Test_Lab        # Good for quick tests
 6. Code_Vault              # For code snippets
 ```
 
@@ -1234,7 +1233,7 @@ Files Organized: 23 total
 ### For Project Organization
 
 - Use descriptive project names
-- Start with ONGOING or Test_And_Experiments
+- Start with ONGOING or Test_Lab
 - Move to DONE when complete
 - Use Code_Vault for useful snippets
 
@@ -1261,7 +1260,7 @@ The tool automatically:
 1. "Where should I put my project?"
 
    - ONGOING: For active projects
-   - Test_And_Experiments: For quick tests
+   - Test_Lab: For quick tests
    - Code_Vault: For useful code bits
 
 2. "What happens to my original files?"
