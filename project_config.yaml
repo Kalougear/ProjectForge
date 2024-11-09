@@ -1,8 +1,7 @@
 base_path: /mnt/c/Users/SKTech/Desktop/project_files/scripts/Test_Subject
 defaults:
   create_readme: true
-  readme_template: '# {project_name}
-
+  readme_template: "# {project_name}
 
     Created: {date}
 
@@ -11,137 +10,188 @@ defaults:
 
     ## Description
 
-    [Add project description here]
+    Add project description here.
 
 
-    ## Project Structure
+    ## Structure
 
-    - _docs/: Documentation and reference materials
+    - src/ - Source code
 
-    - hardware/: Hardware-related files
+    - docs/ - Documentation
 
-    - software/: Software and firmware
+    - tests/ - Test files
 
-    - cad/: CAD files and 3D printing
-
-    - builds/: Build outputs and releases
-
-    '
+    "
   status: ONGOING
 file_categories:
-  cad:
-    drawings:
-    - .dwg
-    - .dxf
-    models:
-    - .f3d
-    - .fcstd
-    - .step
-    - .stp
-    - .iges
-    prints:
-    - .stl
-    - .gcode
-  docs:
-    diagrams:
-    - .drawio
-    - .svg
-    text:
-    - .txt
-    - .md
-    - .pdf
-  hardware:
-    pcb:
-    - .kicad_pcb
-    - .gbr
-    production:
-    - .bom
-    - .pos
-    schematics:
-    - .sch
-    - .kicad_sch
-    - .brd
-  software:
-    build:
-    - .o
-    - .obj
-    - .exe
-    config:
-    - .ini
-    - .json
-    - .yaml
-    preserve_structure: true
-    src:
-    - .c
-    - .cpp
-    - .h
-    - .hpp
-    - .py
-    - .ino
+  # Source Code Files
+  code:
+    programming:
+      - .py # Python
+      - .js # JavaScript
+      - .ts # TypeScript
+      - .jsx # React JSX
+      - .tsx # React TypeScript
+      - .html # HTML
+      - .css # CSS
+      - .scss # SASS
+      - .less # LESS
+      - .cpp # C++
+      - .c # C
+      - .h # Header
+      - .hpp # C++ Header
+      - .java # Java
+      - .rb # Ruby
+      - .php # PHP
+      - .swift # Swift
+      - .go # Go
+      - .rs # Rust
+      - .ino # Arduino
+      - .sql # SQL
+
+  # Documentation and Notes
+  documents:
+    notes:
+      - .md # Markdown
+      - .txt # Plain text
+      - .rtf # Rich Text Format
+    office_docs:
+      - .pdf # PDF
+      - .doc # Word
+      - .docx # Word
+      - .xls # Excel
+      - .xlsx # Excel
+      - .ppt # PowerPoint
+      - .pptx # PowerPoint
+      - .odt # OpenDocument Text
+      - .ods # OpenDocument Spreadsheet
+    technical:
+      - .drawio # Diagrams
+      - .uml # UML diagrams
+      - .svg # Vector graphics
+
+  # Image Files
+  images:
+    raster:
+      - .jpg # JPEG
+      - .jpeg # JPEG
+      - .png # PNG
+      - .gif # GIF
+      - .bmp # Bitmap
+      - .tiff # TIFF
+      - .webp # WebP
+      - .ico # Icon
+    vector:
+      - .svg # SVG
+      - .ai # Adobe Illustrator
+      - .eps # Encapsulated PostScript
+    raw:
+      - .raw # Raw image
+      - .cr2 # Canon Raw
+      - .nef # Nikon Raw
+      - .arw # Sony Raw
+
+  # Data Files
+  data:
+    structured:
+      - .json # JSON
+      - .yaml # YAML
+      - .yml # YAML
+      - .xml # XML
+      - .toml # TOML
+    tabular:
+      - .csv # CSV
+      - .tsv # Tab-separated values
+      - .xlsx # Excel
+    database:
+      - .db # SQLite
+      - .sqlite # SQLite
+      - .sql # SQL dumps
+
+  # Media Files
+  media:
+    audio:
+      - .mp3 # MP3
+      - .wav # WAV
+      - .ogg # OGG
+      - .flac # FLAC
+    video:
+      - .mp4 # MP4
+      - .avi # AVI
+      - .mov # QuickTime
+      - .wmv # Windows Media
+      - .webm # WebM
+
+  # Archive Files
+  archives:
+    - .zip # ZIP
+    - .rar # RAR
+    - .7z # 7-Zip
+    - .tar # TAR
+    - .gz # GZIP
+    - .bz2 # BZIP2
+
+  # Design Files
+  design:
+    cad:
+      - .stl # 3D printing
+      - .obj # 3D object
+      - .fbx # Autodesk FBX
+      - .dxf # AutoCAD
+      - .dwg # AutoCAD
+    design_tools:
+      - .psd # Photoshop
+      - .ai # Illustrator
+      - .sketch # Sketch
+      - .fig # Figma
+      - .xd # Adobe XD
+
+  # Configuration Files
+  config:
+    - .ini # INI
+    - .conf # Config
+    - .cfg # Config
+    - .env # Environment
+    - .properties # Properties
+
 ignore_patterns:
-- ^\.
-- ~$
-- ^\$
-- ^desktop\.ini$
-- ^Thumbs\.db$
-- ^\.git
-- ^\.vs
-- ^\.pio/build/
-- ^\.vscode/
-- ^__pycache__
-- \.pyc$
-master_folders:
-- desc: Active projects in development
-  name: ONGOING
-- desc: Project concepts and future plans
-  name: IDEAS
-- desc: Temporarily paused projects
-  name: HOLD
-- desc: Completed projects
-  name: DONE
-- desc: Code snippet experiments and test projects
-  name: Test_Lab
-- desc: Code snippets, libraries, ready to go
-  name: Code_Vault
-- desc: ''
-  name: YOLOLELEI
+  - ^\.
+  - ^__pycache__$
+  - \.pyc$
+  - \.o$
+  - \.exe$
+  - node_modules
+  - \.git$
+  - \.svn$
+  - \.DS_Store$
+  - Thumbs\.db$
 naming_patterns:
   PascalCase:
-    description: 'PascalCase: ComponentName001'
+    description: "PascalCase: ComponentName001"
     example: MotorMountCad001
-    pattern: '{name}{type}{counter}'
-  Snake_Case:
-    description: 'Snake_Case: Component_Name_001'
-    example: Motor_Mount_Cad_001
-    pattern: '{name}_{type}_{counter}'
+    pattern: "{name}{type}{counter}"
   snake_case:
-    description: 'snake_case: component_name_001'
+    description: "snake_case: component_name_001"
     example: motor_mount_cad_001
-    pattern: '{name}_{type}_{counter}'
+    pattern: "{name}_{type}_{counter}"
 preserved_software_structure:
-- .vscode
-- .pio
-- src
-- lib
-- include
-- test
-- build
-- debug
-- release
-- platformio.ini
-- arduino.json
-- package.json
-- CMakeLists.txt
-- node_modules
-- vendor
+  - src
+  - include
+  - lib
+  - test
+  - .pio
+  - .vscode
+  - boards
+  - scripts
+  - data
 project_structure:
   _docs:
     description: Documentation and reference materials
     subfolders:
-    - datasheets
-    - images
-    - notes
-    - references
+      - datasheets
+      - images
+      - notes
+      - references
   builds:
     description: Build outputs and releases
     subfolders: []
@@ -149,8 +199,8 @@ project_structure:
     description: CAD files and 3D printing
     subfolders:
       3dprint:
-      - stl
-      - gcode
+        - stl
+        - gcode
       drawings: []
       models: []
   hardware:
@@ -159,26 +209,21 @@ project_structure:
       bom: []
       pcb: []
       production:
-      - gerber
-      - assembly
+        - gerber
+        - assembly
       schematics: []
   software:
     description: Software and firmware
     subfolders: []
 software_project_markers:
   directories:
-  - .vscode
-  - .pio
-  - src
-  - lib
-  - include
-  - test
-  - build
+    - src
+    - include
+    - lib
+    - test
   files:
-  - platformio.ini
-  - arduino.json
-  - package.json
-  - CMakeLists.txt
-  - .ino
-  - main.cpp
-  - sketch.ino
+    - platformio.ini
+    - CMakeLists.txt
+    - package.json
+    - requirements.txt
+    - setup.py
