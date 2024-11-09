@@ -1,7 +1,80 @@
+# Python build artifacts
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Distribution / packaging
+project_forge_tool.egg-info/
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
 .pytest_cache/
-project_config.yaml
-README.md
+cover/
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Local development settings
+local_settings.py
+instance/
+*.log
+*.sqlite
+*.db
+
+# Project specific
+Images/
+**/config.yaml
+**/project_config.yaml
+**/local_config.yaml
+**/secrets.yaml
+**/credentials.yaml
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
