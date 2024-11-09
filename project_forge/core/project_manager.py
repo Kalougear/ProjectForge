@@ -1,6 +1,7 @@
 # project_forge/core/project_manager.py
 import os
 import yaml
+import shutil
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 from pathlib import Path
@@ -19,7 +20,7 @@ class ProjectManager:
 
         # Initialize paths and folders
         self.base_path = self.configure_base_path()
-        self.master_folders = self.configure_master_folders()
+        self.master_folders = self.get_or_configure_master_folders()
         
         # Get configurations
         self.project_structure = self.config.get('project_structure', {})
@@ -35,6 +36,87 @@ class ProjectManager:
         self.file_handler = FileHandler(self.config)
         self.software_handler = SoftwareHandler(self.config)
         self.snippet_handler = SnippetHandler(self.config)
+
+    def check_master_folders_exist(self, path: str = None) -> bool:
+        """Check if master folders exist in given path or base path"""
+        check_path = path if path else self.base_path
+        required_folders = ['ONGOING', 'IDEAS', 'HOLD', 'DONE', 'Test_Lab', 'Code_Vault']
+        
+        for folder in required_folders:
+            folder_path = os.path.join(check_path, folder)
+            if not os.path.exists(folder_path):
+                return False
+        return True
+
+    def backup_folder_structure(self):
+        """Create a backup of the current folder structure"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        backup_path = os.path.join(self.base_path, f"structure_backup_{timestamp}")
+        
+        print(Colors.info(f"\nCreating backup at: {backup_path}"))
+        
+        # Create backup directory
+        os.makedirs(backup_path)
+        
+        # Copy all folders and their contents
+        for folder in os.listdir(self.base_path):
+            folder_path = os.path.join(self.base_path, folder)
+            if os.path.isdir(folder_path) and not folder.startswith("structure_backup_"):
+                backup_folder = os.path.join(backup_path, folder)
+                shutil.copytree(folder_path, backup_folder)
+        
+        print(Colors.success("✓ Backup created successfully"))
+        return backup_path
+
+    def add_custom_folders(self):
+        """Add custom folders to existing structure"""
+        print(Colors.info("""
+Let's add your custom folders!
+Enter folder names and descriptions (press Enter without a name to finish).
+These will be created alongside the existing folders.
+"""))
+        
+        while True:
+            name = input(Colors.info("Custom folder name (or press Enter to finish): ")).strip().upper()
+            if not name:
+                break
+                
+            # Check if folder already exists
+            folder_path = os.path.join(self.base_path, name)
+            if os.path.exists(folder_path):
+                print(Colors.warning(f"Folder '{name}' already exists!"))
+                continue
+                
+            desc = input(Colors.info(f"Description for {name}: ")).strip()
+            
+            # Create the custom folder
+            os.makedirs(folder_path, exist_ok=True)
+            print(Colors.success(f"✓ Created custom folder {name}"))
+            
+            # Add to master_folders in config
+            self.config['master_folders'].append({'name': name, 'desc': desc})
+            self.config_manager.save_config()
+
+        print(Colors.success("\nCustom folders added successfully!"))
+
+    def reinitialize_folder_structure(self):
+        """Reinitialize folder structure with backup"""
+        # First create a backup
+        backup_path = self.backup_folder_structure()
+        
+        print(Colors.info("\nReinitializing folder structure..."))
+        
+        # Remove all existing folders except backup
+        for folder in os.listdir(self.base_path):
+            folder_path = os.path.join(self.base_path, folder)
+            if os.path.isdir(folder_path) and not folder.startswith("structure_backup_"):
+                shutil.rmtree(folder_path)
+        
+        # Create new folder structure
+        self.master_folders = self.configure_master_folders()
+        
+        print(Colors.success("\nFolder structure reinitialized successfully!"))
+        print(Colors.info(f"Your previous structure is backed up at: {backup_path}"))
 
     def configure_base_path(self) -> str:
         """Configure and validate base project path"""
@@ -73,6 +155,13 @@ Common locations include:
             # Create base directory if it doesn't exist
             os.makedirs(base_path, exist_ok=True)
             
+            # Check if master folders already exist in the new path
+            if self.check_master_folders_exist(base_path):
+                print(Colors.success("\n✓ Master folders structure detected in the new path"))
+            else:
+                print(Colors.warning("\n! No master folders structure found in the new path"))
+                print(Colors.info("A new folder structure will be created."))
+            
             # Update config
             self.config['base_path'] = base_path
             self.config_manager.save_config()
@@ -86,6 +175,34 @@ Common locations include:
         except Exception as e:
             print(Colors.error(f"Error creating base directory: {e}"))
             raise
+
+    def get_or_configure_master_folders(self) -> List[Dict[str, str]]:
+        """Get existing master folders or configure new ones if they don't exist"""
+        if self.test_mode:
+            test_folders = [
+                {'name': 'ONGOING', 'desc': 'Active projects'},
+                {'name': 'DONE', 'desc': 'Completed projects'}
+            ]
+            for folder in test_folders:
+                os.makedirs(os.path.join(self.base_path, folder['name']), exist_ok=True)
+            return test_folders
+
+        # Get default folders from config
+        default_folders = self.config.get('master_folders', [
+            {'name': 'ONGOING', 'desc': 'Active projects in development'},
+            {'name': 'IDEAS', 'desc': 'Project concepts and future plans'},
+            {'name': 'HOLD', 'desc': 'Temporarily paused projects'},
+            {'name': 'DONE', 'desc': 'Completed projects'},
+            {'name': 'Test_Lab', 'desc': 'Code snippet experiments and test projects'},
+            {'name': 'Code_Vault', 'desc': 'Code snippets, libraries, ready to go'}
+        ])
+
+        # If master folders don't exist, configure them
+        if not self.check_master_folders_exist():
+            self.configure_master_folders()
+
+        # Always return the default folders from config
+        return default_folders
 
     def configure_master_folders(self) -> List[Dict[str, str]]:
         """Configure master folder structure"""
@@ -240,7 +357,7 @@ This will be your project's organization structure.
 
     def organize_existing_project(self, source_path: str, project_name: str, 
                                 status: str, naming_pattern: str = None) -> str:
-        """Organize existing project files"""
+        """Organize existing project files by copying to new location"""
         # Create new project
         project_path = self.create_project(project_name, status)
         
@@ -252,6 +369,54 @@ This will be your project's organization structure.
         self.file_handler.organize_files(source_path, project_path, naming_pattern)
         
         return project_path
+
+    def organize_project_in_place(self, source_path: str, project_name: str,
+                                status: str, naming_pattern: str = None) -> str:
+        """Organize existing project files in their current location"""
+        print(Colors.header(f"\nOrganizing project '{project_name}' in current location..."))
+        
+        # Create project structure in current location
+        for folder_name, folder_info in self.project_structure.items():
+            folder_path = os.path.join(source_path, folder_name)
+            os.makedirs(folder_path, exist_ok=True)
+            print(Colors.success(f"✓ Created {folder_name}"))
+            
+            # Create subfolders if defined
+            if 'subfolders' in folder_info:
+                if isinstance(folder_info['subfolders'], list):
+                    # Simple list of subfolder names
+                    for subfolder in folder_info['subfolders']:
+                        subfolder_path = os.path.join(folder_path, subfolder)
+                        os.makedirs(subfolder_path, exist_ok=True)
+                        print(Colors.success(f"  ✓ Created {folder_name}/{subfolder}"))
+                else:
+                    # Dictionary with nested structure
+                    for subfolder, sub_items in folder_info['subfolders'].items():
+                        subfolder_path = os.path.join(folder_path, subfolder)
+                        os.makedirs(subfolder_path, exist_ok=True)
+                        print(Colors.success(f"  ✓ Created {folder_name}/{subfolder}"))
+                        
+                        # Create any deeper nested folders
+                        if isinstance(sub_items, list) and sub_items:
+                            for item in sub_items:
+                                item_path = os.path.join(subfolder_path, item)
+                                os.makedirs(item_path, exist_ok=True)
+                                print(Colors.success(f"    ✓ Created {folder_name}/{subfolder}/{item}"))
+        
+        # Create project metadata
+        self._create_project_yaml(source_path, project_name, status)
+        print(Colors.success("✓ Created project.yaml"))
+        
+        # Create README if enabled
+        if self.defaults.get('create_readme', True):
+            self._create_readme(source_path, project_name, status)
+            print(Colors.success("✓ Created README.md"))
+        
+        # Organize files in place
+        self.file_handler.organize_files(source_path, source_path, naming_pattern)
+        
+        print(Colors.success(f"\nProject '{project_name}' organized successfully in current location!"))
+        return source_path
 
     def _create_project_yaml(self, project_path: str, project_name: str, status: str):
         """Create project metadata YAML file"""

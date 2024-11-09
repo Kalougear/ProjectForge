@@ -7,12 +7,12 @@ Got project files everywhere? Arduino sketches scattered across your PC? Random 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20WSL-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
 ## Made with 🛠️ by [SKTech] - For Makers, By Makers!
 
 ## Contributors
- - [Lopofsky](https://github.com/Lopofsky)
 
-
+- [Lopofsky](https://github.com/Lopofsky)
 
 # 📑 Table of Contents
 
@@ -83,17 +83,21 @@ Got project files everywhere? Arduino sketches scattered across your PC? Random 
    - Copy and paste these commands one by one:
 
 ## 1. Install required package (one-time setup)
+
 ```bash
 sudo apt update
 sudo apt install python3 python3-pip python3-yaml git
 ```
+
 ## 2. Clone the repo (one-time setup)
+
 ```
 git clone https://github.com/Kalougear/ProjectForge.git
 cd ProjectForge
 ```
 
 ## 3. Run the script
+
 ```
 python3 -m project_forge
 ```
@@ -126,12 +130,15 @@ One-line setup:
 ```bash
 sudo apt update && sudo apt install python3 python3-pip git && pip3 install PyYAML && git clone https://github.com/Kalougear/ProjectForge.git && cd ProjectForge && python3 -m project_forge
 ```
+
 # 🍎 For Mac/MacOS Users
 
 ### 1. Install Homebrew (if not installed)
-```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"```
+
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
 ### 2. Complete Mac setup in one go:
+
 ```brew update && \
 brew install python3 git && \
 pip3 install PyYAML && \
@@ -139,6 +146,7 @@ git clone https://github.com/Kalougear/ProjectForge.git && \
 cd ProjectForge && \
 python3 -m project_management
 ```
+
 ---
 
 ## 🗺️ Path Guide (For Everyone!)
@@ -196,7 +204,7 @@ YourPath/
 ├── HOLD/                    # Paused projects
 ├── DONE/                    # Completed projects
 ├── Test_And_Experiments/    # Test code
-└── Code_Archives/          # Code snippets
+└── Code_Vault/          # Code snippets
 ```
 
 Each project gets:
@@ -271,7 +279,7 @@ Select status:
 3. HOLD: Paused projects
 4. DONE: Completed projects
 5. Test_And_Experiments        # Good for quick tests
-6. Code_Archives              # For code snippets
+6. Code_Vault              # For code snippets
 ```
 
 ### 2. Cleaning Up Messy Projects
@@ -340,7 +348,7 @@ random_folder/
 Into this:
 
 ```
-Code_Archives/
+Code_Vault/
 └── UART_Handler/
     └── UART_Handler.cpp   # Clean, organized, reusable!
 ```
@@ -581,7 +589,7 @@ Files Organized: 23 total
 - Use descriptive project names
 - Start with ONGOING or Test_And_Experiments
 - Move to DONE when complete
-- Use Code_Archives for useful snippets
+- Use Code_Vault for useful snippets
 
 ### For Arduino/PlatformIO Projects
 
@@ -607,7 +615,7 @@ The tool automatically:
 
    - ONGOING: For active projects
    - Test_And_Experiments: For quick tests
-   - Code_Archives: For useful code bits
+   - Code_Vault: For useful code bits
 
 2. "What happens to my original files?"
 
