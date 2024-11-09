@@ -196,7 +196,7 @@ YourPath/
 ├── HOLD/                    # Paused projects
 ├── DONE/                    # Completed projects
 ├── Test_And_Experiments/    # Test code
-└── Code_Archives/          # Code snippets
+└── Code_Vault/          # Code snippets
 ```
 
 Each project gets:
@@ -271,7 +271,7 @@ Select status:
 3. HOLD: Paused projects
 4. DONE: Completed projects
 5. Test_And_Experiments        # Good for quick tests
-6. Code_Archives              # For code snippets
+6. Code_Vault              # For code snippets
 ```
 
 ### 2. Cleaning Up Messy Projects
@@ -340,7 +340,7 @@ random_folder/
 Into this:
 
 ```
-Code_Archives/
+Code_Vault/
 └── UART_Handler/
     └── UART_Handler.cpp   # Clean, organized, reusable!
 ```
@@ -581,7 +581,7 @@ Files Organized: 23 total
 - Use descriptive project names
 - Start with ONGOING or Test_And_Experiments
 - Move to DONE when complete
-- Use Code_Archives for useful snippets
+- Use Code_Vault for useful snippets
 
 ### For Arduino/PlatformIO Projects
 
@@ -607,7 +607,7 @@ The tool automatically:
 
    - ONGOING: For active projects
    - Test_And_Experiments: For quick tests
-   - Code_Archives: For useful code bits
+   - Code_Vault: For useful code bits
 
 2. "What happens to my original files?"
 
